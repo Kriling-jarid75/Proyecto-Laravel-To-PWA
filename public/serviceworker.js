@@ -24,7 +24,7 @@ var filesToCache = [
     'https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap'
 
 ];
-
+/*
 // Cache on install
 self.addEventListener("install", event => {
     this.skipWaiting();
@@ -35,7 +35,34 @@ self.addEventListener("install", event => {
             })
     )
 });
+*/
 
+/*
+self.addEventListener('install', e => {
+    e.waitUntil(
+        caches.open(staticCacheName)
+            .then(async cache => {
+                await cache.addAll(filesToCache);
+                self.skipWaiting();
+            })
+            .catch(err => console.log('No se ha registrado el cache', err))
+    )
+
+
+});
+*/
+
+//APP SHELL -> Lo que se requiere para que funcione la aplicación offline
+self.addEventListener('install', e => {
+    console.log('se instalo correctamente')
+    const cacheProme = caches.open(staticCacheName)
+        .then(cache => {
+            return cache.addAll(filesToCache);
+        });
+    e.waitUntil(cacheProme);
+});
+
+/* 
 // Clear cache on activate
 self.addEventListener('activate', event => {
     event.waitUntil(
@@ -48,7 +75,53 @@ self.addEventListener('activate', event => {
             );
         })
     );
+}); */
+
+
+
+//Evento activate
+//Para que la app funcione sin conexion a internet
+
+self.addEventListener('activate', e => {
+
+    const cacheWhiteList = [staticCacheName];
+
+    e.waitUntil(
+        caches.keys()
+            .then(cacheNames => {
+                return Promise.all(
+                    cacheNames.map(cacheName => {
+                        if (cacheWhiteList.indexOf(cacheName) === -1) {
+                            //Elementos que no se necesiten
+                            return caches.delete(cacheName);
+                        }
+                    })
+                );
+            })
+            .then(() => {
+                //Activar la cache del dispositivo
+                self.clients.claim();
+            })
+    )
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Serve from Cache
 self.addEventListener("fetch", event => {

@@ -40,7 +40,9 @@
                         <div class="flex items-center">
                             <img src="imagenes/artes-marciales.png" alt="">
                             <div class="ml-4 text-lg leading-7 font-semibold">
-                                <a href="" class="underline text-gray-900 dark:text-white">CV De Kriling Jarid</a>
+                                <a href="{{ route('portafolioKriling.index') }}" class="underline text-gray-900 dark:text-white">
+                                    CV De Kriling Jarid
+                                </a>
                             </div>
                         </div>
 
@@ -57,7 +59,7 @@
                         <div class="flex items-center">
                             <img src="imagenes/jugadores-de-futbol.png" alt="">
                             <div class="ml-4 text-lg leading-7 font-semibold">
-                                <a href="https://laracasts.com" class="underline text-gray-900 dark:text-white">CV De
+                                <a href="{{ route('portafolioManuel.index') }}" class="underline text-gray-900 dark:text-white">CV De
                                     José Manuel</a>
                             </div>
                         </div>
@@ -75,7 +77,7 @@
                         <div class="flex items-center">
                             <img src="imagenes/game-console.png" alt="">
                             <div class="ml-4 text-lg leading-7 font-semibold">
-                                <a href="https://laravel-news.com/" class="underline text-gray-900 dark:text-white">CV
+                                <a href="{{ route('portafolioDavid.index') }}" class="underline text-gray-900 dark:text-white">CV
                                     De David</a>
                             </div>
                         </div>
@@ -93,7 +95,7 @@
                         <div class="flex items-center">
                             <img src="imagenes/arquitecto.png" alt="">
                             <div class="ml-4 text-lg leading-7 font-semibold">
-                                <a href="https://laravel-news.com/" class="underline text-gray-900 dark:text-white">CV
+                                <a href="{{ route('portafolioKriling.index') }}" class="underline text-gray-900 dark:text-white">CV
                                     De Paola</a>
                             </div>
                         </div>

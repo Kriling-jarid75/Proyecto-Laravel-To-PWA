@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DavidController;
+use App\Http\Controllers\KrilingController;
+use App\Http\Controllers\ManuelController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +24,13 @@ Route::get('/', function () {
 Route::get('/offline', function () {    
     return view('vendor/laravelpwa/offline');
 });
+
+
+
+Route::resource('/portafolioDavid',DavidController::class);
+
+Route::resource('/portafolioKriling',KrilingController::class);
+
+Route::resource('/portafolioManuel',ManuelController::class);
+
+
