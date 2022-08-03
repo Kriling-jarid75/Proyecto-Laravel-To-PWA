@@ -133,6 +133,42 @@ self.addEventListener('activate', (event) => {
     self.clients.claim();
 });
 
+
+
+
+
+self.addEventListener('fetch', function(event) {
+    console.log('Ya funciona mejor esto')
+    event.respondWith(
+      caches.match(event.request)
+        .then(function(response) {
+          if (response) {
+            return response;     // if valid response is found in cache return it
+          } else {
+            return fetch(event.request)     //fetch from internet
+              .then(function(res) {
+                return caches.open(staticCacheName)
+                  .then(function(cache) {
+                    cache.put(event.request.url, res.clone());    //save the response for future
+                    return res;   // return the fetched data
+                  })
+              })
+              .catch(function(err) {       // fallback mechanism
+                return caches.open(filesToCache)
+                  .then(function(cache) {
+                    return cache.match('./offline');
+                  });
+              });
+          }
+        })
+    );
+  });    
+
+
+
+
+
+/*
 // Serve from Cache
 self.addEventListener("fetch", event => {
     console.log('[The fetch] activate successfully');
@@ -141,17 +177,6 @@ self.addEventListener("fetch", event => {
         return returnFromCache(event.request);
     }));
     event.waitUntil(addToCache(event.request));
-
-
-
-       /*  caches.match(event.request)
-            .then(response => {
-                return response || fetch(event.request);
-            })
-            .catch(() => {
-                return caches.match('offline');
-            })
-    ) */
 });
 
 var checkResponse = function (request) {
@@ -166,12 +191,6 @@ var checkResponse = function (request) {
     });
 };
 
-var addToCache = async function (request) {
-    const cache = await caches.open("offline");
-    const response = await fetch(request);
-    return await cache.put(request, response);
-};
-
 var returnFromCache = async function (request) {
     const cache = await caches.open("offline");
     const matching = await cache.match(request);
@@ -181,3 +200,11 @@ var returnFromCache = async function (request) {
         return matching;
     }
 };
+
+var addToCache = async function (request) {
+    const cache = await caches.open("offline");
+    const response = await fetch(request);
+    return await cache.put(request, response);
+};
+
+*/
