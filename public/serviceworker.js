@@ -1,27 +1,34 @@
 var staticCacheName = "pwa-v" + new Date().getTime();
-var filesToCache = [
-    '/offline',
-    '/css/app.css',
-    '/estilos/estiloPricipal.css',
-    '/estilos/EstiloSinConexion.css',
-    '/js/app.js',
-    '/images/icons/icon-72x72.png',
-    '/images/icons/icon-96x96.png',
-    '/images/icons/icon-128x128.png',
-    '/images/icons/icon-144x144.png',
-    '/images/icons/icon-152x152.png',
-    '/images/icons/icon-192x192.png',
-    '/images/icons/icon-384x384.png',
-    '/images/icons/icon-512x512.png',
-    '/imagenes/arquitecto.png',
-    '/imagenes/artes-marciales.png',
-    '/imagenes/facebook.png',
-    '/imagenes/game-console.png',
-    '/imagenes/instagram.png',
-    '/imagenes/jugadores-de-futbol.png',
-    '/imagenes/pelota-de-futbol.png',
-    '/imagenes/youtube.png',
-    'https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap'
+const filesToCache = [
+    './offline',
+    './css/app.css',
+    './estilos/estiloPricipal.css',
+    './estilos/estilosCVDavid.css',
+    './estilos/estiilosCVKriling.css',
+    './estilos/estilosCVManuel.css',
+    './estilos/EstiloSinConexion.css',
+    './js/app.js',
+    './images/icons/icon-72x72.png',
+    './images/icons/icon-96x96.png',
+    './images/icons/icon-128x128.png',
+    './images/icons/icon-144x144.png',
+    './images/icons/icon-152x152.png',
+    './images/icons/icon-192x192.png',
+    './images/icons/icon-384x384.png',
+    './images/icons/icon-512x512.png',
+    './imagenes/arquitecto.png',
+    './imagenes/artes-marciales.png',
+    './imagenes/facebook.png',
+    './imagenes/game-console.png',
+    './imagenes/instagram.png',
+    './imagenes/jugadores-de-futbol.png',
+    './imagenes/pelota-de-futbol.png',
+    './imagenes/youtube.png',
+    './imagenes/Avatar.jpg',
+    './imagenes/avatar1.jpg',
+    './imagenes/imgKriling.jpg',
+    './imagenes/tazaCafe.jpg',
+    './curriculums/CV_KrilingJaridGarciaEspinoza.pdf'
 
 ];
 /*
@@ -37,8 +44,9 @@ self.addEventListener("install", event => {
 });
 */
 
-/*
+
 self.addEventListener('install', e => {
+    console.log('The service is already installed');
     e.waitUntil(
         caches.open(staticCacheName)
             .then(async cache => {
@@ -50,8 +58,8 @@ self.addEventListener('install', e => {
 
 
 });
-*/
 
+/* 
 //APP SHELL -> Lo que se requiere para que funcione la aplicación offline
 self.addEventListener('install', e => {
     console.log('se instalo correctamente')
@@ -59,8 +67,10 @@ self.addEventListener('install', e => {
         .then(cache => {
             return cache.addAll(filesToCache);
         });
-    e.waitUntil(cacheProme);
-});
+    e.waitUntil((async () => {
+        cacheProme
+    })());
+}); */
 
 /* 
 // Clear cache on activate
@@ -81,7 +91,7 @@ self.addEventListener('activate', event => {
 
 //Evento activate
 //Para que la app funcione sin conexion a internet
-
+/* 
 self.addEventListener('activate', e => {
 
     const cacheWhiteList = [staticCacheName];
@@ -103,35 +113,71 @@ self.addEventListener('activate', e => {
                 self.clients.claim();
             })
     )
+}); */
+
+
+
+
+self.addEventListener('activate', (event) => {
+    console.log('[Service Worker] activate');
+
+    event.waitUntil((async () => {
+        // Enable navigation preload if it's supported.
+        // See https://developers.google.com/web/updates/2017/02/navigation-preload
+        if ('navigationPreload' in self.registration) {
+            await self.registration.navigationPreload.enable();
+        }
+    })());
+
+    // Tell the active service worker to take control of the page immediately.
+    self.clients.claim();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Serve from Cache
 self.addEventListener("fetch", event => {
-    event.respondWith(
-        caches.match(event.request)
+    console.log('[The fetch] activate successfully');
+    event.respondWith(checkResponse(event.request)
+    .catch(function () {
+        return returnFromCache(event.request);
+    }));
+    event.waitUntil(addToCache(event.request));
+
+
+
+       /*  caches.match(event.request)
             .then(response => {
                 return response || fetch(event.request);
             })
             .catch(() => {
                 return caches.match('offline');
             })
-    )
+    ) */
 });
+
+var checkResponse = function (request) {
+    return new Promise(function (fulfill, reject) {
+        fetch(request).then(function (response) {
+            if (response.status !== 404) {
+                fulfill(response);
+            } else {
+                reject();
+            }
+        }, reject);
+    });
+};
+
+var addToCache = async function (request) {
+    const cache = await caches.open("offline");
+    const response = await fetch(request);
+    return await cache.put(request, response);
+};
+
+var returnFromCache = async function (request) {
+    const cache = await caches.open("offline");
+    const matching = await cache.match(request);
+    if (!matching || matching.status == 404) {
+        return cache.match("offline");
+    } else {
+        return matching;
+    }
+};

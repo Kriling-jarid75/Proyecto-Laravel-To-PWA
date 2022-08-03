@@ -24,7 +24,7 @@
             <!-- PROFILE -->
             <div class="profile">
                 <div class="img_setting">
-                    <img src="imagenes/IMG_20180730_072734404.jpg">
+                    <img src="imagenes/imgKriling.jpg">
                 </div>
                 <h4>Kriling Jarid Garcia Espinoza</h4>
                 <h5>Estudiante De Ingeneria en el Desarrollo de Software</h5>
@@ -53,6 +53,7 @@
                     </li>
                 </ul>
             </div>
+      
             <!-- EDUCATION -->
             <div class="left_items">
                 <h4 class="title">Formación</h4>
@@ -232,6 +233,13 @@
             </div>
         </div>
     </div>
+
+   
+
+  <footer style="margin-bottom:110%">
+        <a style="color:black" href="/" class="text-center">Regresame al inicio.</a>
+    </footer>
+   
 </body>
 
 </html>

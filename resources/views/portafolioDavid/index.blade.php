@@ -17,11 +17,6 @@
 </head>
 
 <body>
-
- 
-
-
-
     <main class="main-content">
         <section class="left-section">
             <div class="left-content">
@@ -285,7 +280,13 @@
                     </section>
             </div>
         </section>
+        
+
+  <footer style="margin-top:10%">
+        <a style="color:black" href="/" class="text-center">Regresame al inicio</a>
+    </footer>
     </main>
+    
 </body>
 
 </html>

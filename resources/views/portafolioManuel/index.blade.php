@@ -271,7 +271,13 @@
                     </section>
             </div>
             </section>
+            
+
+  <footer  style="margin-top:10px">
+        <a style="color:black" href="/" class="text-center">Regresame al incio.</a>
+    </footer>
     </main>
+    
 </body>
 
 </html>
