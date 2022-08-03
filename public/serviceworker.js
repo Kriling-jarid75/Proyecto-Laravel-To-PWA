@@ -1,4 +1,4 @@
-var staticCacheName = "pwa-v " + new Date().getTime();
+var staticCacheName = "pwa-v" + new Date().getTime();
 var filesToCache = [
     '/offline',
     '/css/app.css',
@@ -21,6 +21,7 @@ var filesToCache = [
     '/imagenes/jugadores-de-futbol.png',
     '/imagenes/pelota-de-futbol.png',
     '/imagenes/youtube.png',
+    'https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap'
 
 ];
 

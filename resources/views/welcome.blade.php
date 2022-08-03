@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="estilos/estiloPrincipal.css">
+
     <!--PWA los assets que publicara la pwa-->
     @laravelPWA
 
@@ -27,7 +28,7 @@
 
             <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
 
-                <h1 class="style-1">PROJECT OF LARAVEL TO PWA original</h1>
+                <h1 class="style-1">PROJECT OF LARAVEL TO PWA </h1>
             </div>
             <!--aqui termina la el titulo de LARAVEL-->
 
