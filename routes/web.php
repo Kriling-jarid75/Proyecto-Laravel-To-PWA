@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DavidController;
 use App\Http\Controllers\KrilingController;
 use App\Http\Controllers\ManuelController;
+use App\Http\Controllers\PaolaController;
 
 
 /*
@@ -32,5 +33,7 @@ Route::resource('/portafolioDavid',DavidController::class);
 Route::resource('/portafolioKriling',KrilingController::class);
 
 Route::resource('/portafolioManuel',ManuelController::class);
+
+Route::resource('/portafolioPaola',PaolaController::class);
 
 
